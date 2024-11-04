@@ -28,12 +28,11 @@ pipeline {
                 }
             }
 
-        steps {
-            agent {
-                sh '''
+            steps {
+                 sh '''
                     test -f build/index.html
                     npm test
-            '''
+                '''
             }
         }
     }
