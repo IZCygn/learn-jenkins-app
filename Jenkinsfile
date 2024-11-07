@@ -48,7 +48,8 @@ pipeline {
                  sh '''
                     npm install serve
                     node_modules/.serve -s build &
-                    npx playwright test
+                    sleep 10
+                    npx playwright test --reporter=html
 
                 '''
             }
@@ -58,6 +59,7 @@ pipeline {
     post {
         always {
             junit 'test-result/junit.xml'
+            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'Playwright HTML Report', reportTitles: '', useWrapperFileDirectly: true])
         }
     }
 }
